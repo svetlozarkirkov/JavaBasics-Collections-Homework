@@ -8,16 +8,13 @@ public class Problem8_ExtractEMails {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		String inputText = input.nextLine();
-		Pattern regexMail = Pattern.compile("");
-		Matcher matcher = regexMail.matcher("[_A-Za-z0-9-]+)(\\.[_A-Za-z0-9-]+)@([A-Za-z0-9]+)(\\.[A-Za-z0-9]+");
-		String[] split = inputText.split("(?=[,.])|\\s+");
-		for (String text: split){
-			if (matcher.find()){
-				System.out.print(matcher.group() + "\n");
-			}
+		Pattern mail = 
+				Pattern.compile
+					("[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})");
+		Matcher m = mail.matcher(inputText);
+		while (m.find()) {
+		    System.out.println(m.group(0));
 		}
-		
-		
 		input.close();
 	}
 }
