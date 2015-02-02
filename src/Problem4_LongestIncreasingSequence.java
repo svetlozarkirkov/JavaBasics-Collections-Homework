@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -12,49 +11,35 @@ public class Problem4_LongestIncreasingSequence {
 		{
 		   numbers[i] = Integer.parseInt(inputLine[i]);
 		}
-		Problem4_LongestIncreasingSequence obj = new Problem4_LongestIncreasingSequence(); 
-        int[] result = obj.lis(numbers);
-        for (int i = 0; i < result.length; i++)
-            System.out.print(result[i] +" ");
-        System.out.println();
-		input.close();
-	}
-	
-	public int[] lis(int[] X)
-    {        
-        int n = X.length - 1;
-        int[] M = new int[n + 1];  
-        int[] P = new int[n + 1]; 
-        int L = 0;
- 
-        for (int i = 1; i < n + 1; i++)
-        {
-            int j = 0;
- 
-            for (int pos = L ; pos >= 1; pos--)
-            {
-                if (X[M[pos]] < X[i])
-                {
-                    j = pos;
-                    break;
+		
+		int counter = 1;
+        int sequenceLength = 1;
+        int endPosition = 0;
+       
+        System.out.printf("%d ", numbers[0]);
+        for (int i = 1; i < numbers.length; i++) {
+               
+                if(numbers[i] > numbers[i - 1]){
+                        counter++;
+                        System.out.printf("%d ", numbers[i]);
+                } else {
+                        counter = 1;
+                        System.out.printf("\n%d ", numbers[i]);
                 }
-            }            
-            P[i] = M[j];
-            if (j == L || X[i] < X[M[j + 1]])
-            {
-                M[j + 1] = i;
-                L = Math.max(L,j + 1);
-            }
+               
+                if(counter > sequenceLength){
+                        sequenceLength = counter;
+                        endPosition = i;
+                }
         }
-  
-        int[] result = new int[L];
-        int pos = M[L];
-        for (int i = L - 1; i >= 0; i--)
-        {
-            result[i] = X[pos];
-            pos = P[pos];
+       
+        int startPosition = endPosition - sequenceLength + 1;
+        System.out.println();
+       
+        System.out.print("Longest: ");
+        for (int i = startPosition; i <= endPosition; i++) {
+                System.out.printf("%d ", numbers[i]);
         }
-        return result;             
-    }
-
+        input.close();
+	}
 }
